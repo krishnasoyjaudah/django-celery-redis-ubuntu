@@ -99,17 +99,18 @@ startsecs=0
 
 ; if your broker is supervised, set its priority higher
 ; so it starts first
-priority=999```
+priority=999
+```
 
 
 Restart supervisord  
 `sudo service supervisor restart`
 
-Reread & Update config files
-`sudo supervisorctl reread`
+Reread & Update config files  
+`sudo supervisorctl reread`  
 `sudo supervisorctl update`
 
-Start & Stop Processes
+Start & Stop Processes  
 `sudo supervisorctl status <process_name>`  
 `sudo supervisorctl start <process_name>`  
 `sudo supervisorctl stop <process_name>`  
