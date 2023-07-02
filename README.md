@@ -100,6 +100,23 @@ startsecs=0
 ; if your broker is supervised, set its priority higher
 ; so it starts first
 priority=999
+```  
+  
+In settings.py, change 127.0.0.1 to localhost in CELERY_BROKER_URL  
+```
+# CELERY SETTINGS
+CELERY_BROKER_URL  = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE or 'UTC'
+
+
+CELERY_RESULT_BACKEND  = 'django-db'
+
+
+# CELERY BEAT SETTINGS
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 ```
 
 
