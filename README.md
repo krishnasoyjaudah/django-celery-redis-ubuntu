@@ -1,5 +1,5 @@
 # django-celery-redis-ubuntu
-Steps to deploy django celery redis on ubuntu
+Steps to deploy django celery redis on ubuntu 22.04  
 
 Assuming that you have already installed celery and redis on your server, follow the instructions below.
 
@@ -30,8 +30,9 @@ Install supervisor
 celery.conf  `This must be in folder /etc/supervisor/conf.d`  
 ```  
 [program:celery]
-command=/home/djangoadmin/pyapps/venv/bin/celery -A dear worker --loglevel=INFO --hostname=146.190.98.2>directory=/home/djangoadmin/pyapps/dearapi/
-user=djangoadmin
+command=/home/<user>/pyapps/venv/bin/celery -A <folder that contains celery.py file (Usually the same folder as settings.py)> worker --loglevel=INFO --hostname=<SERVER IP>
+directory=/home/<user>/pyapps/<project folder>/
+user=<user> # or you can use root but not recommended
 numprocs=1
 stdout_logfile=/var/log/supervisor/celery.log
 stderr_logfile=/var/log/supervisor/celery.log
@@ -68,11 +69,8 @@ celerybeat.conf  `This must be in folder /etc/supervisor/conf.d`
 command=/home/djangoadmin/pyapps/venv/bin/celery -A dear beat --loglevel=INFO
 
 ; The directory to your Django project
-directory=/home/djangoadmin/pyapps/dearapi/
-
-; If supervisord is run as the root user, switch users to this UNIX user account
-; before doing any processing.
-user=djangoadmin
+directory=/home/<user>/pyapps/<project folder>/
+user=<user> # or you can use root but not recommended
 
 ; Supervisor will start as many instances of this program as named by numprocs
 numprocs=1
@@ -112,7 +110,7 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE or 'UTC'
 
 
-CELERY_RESULT_BACKEND  = 'django-db'
+CELERY_RESULT_BACKEND  = 'django-db' # I use django-celery-results
 
 
 # CELERY BEAT SETTINGS
